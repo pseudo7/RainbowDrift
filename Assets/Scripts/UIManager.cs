@@ -24,9 +24,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (lastTapTime == 0)
-                lastTapTime = Time.realtimeSinceStartup;
-            if (Time.realtimeSinceStartup - lastTapTime < .5f)
+            if (Time.realtimeSinceStartup - lastTapTime < .5f && lastTapTime > 0)
                 Application.Quit();
             else
                 SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 2);
