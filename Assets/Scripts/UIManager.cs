@@ -26,13 +26,11 @@ public class UIManager : MonoBehaviour
         {
             if (lastTapTime == 0)
                 lastTapTime = Time.realtimeSinceStartup;
-            else if (Time.realtimeSinceStartup - lastTapTime < .5f)
-            { Debug.Log("QUIT"); Application.Quit(); }
+            if (Time.realtimeSinceStartup - lastTapTime < .5f)
+                Application.Quit();
             else
-            {
                 SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 2);
-                lastTapTime = Time.realtimeSinceStartup;
-            }
+            lastTapTime = Time.realtimeSinceStartup;
             PlayerMovement.wrongWay = false;
         }
     }
