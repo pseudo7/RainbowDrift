@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -41,25 +43,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!collision.collider.CompareTag(Constants.FINISH_TAG))
+            return;
+        var renderer = collision.collider.GetComponent<SpriteRenderer>();
         if (wrongWay)
         {
-            Debug.Log("Wrong Way"); return;
-        }
-        if (collision.collider.CompareTag(Constants.FINISH_TAG))
-        {
-            if (float.IsPositiveInfinity(lastTime))
-            {
-                lastTime = 60;
-            }
-            else if (currentTime < lastTime)
-            {
-                lastTime = currentTime;
-                if (lastTime < 5) lastTime = 60;
-            }
-            currentTime = 0;
+            lastTime = 60;
+            renderer.color = Color.red;
+            StartCoroutine(RevertColorBack(renderer));
             UIManager.Instance.UpdateLastTime(lastTime);
+            return;
         }
-        else Debug.Log("Invalid Lap");
+        StartCoroutine(RevertColorBack(renderer));
+        renderer.color = Color.white;
+        if (float.IsPositiveInfinity(lastTime))
+        {
+            lastTime = 60;
+        }
+        else if (currentTime < lastTime)
+        {
+            lastTime = currentTime;
+            if (lastTime < 5) lastTime = 60;
+        }
+        currentTime = 0;
+        UIManager.Instance.UpdateLastTime(lastTime);
+    }
+
+    IEnumerator RevertColorBack(SpriteRenderer renderer)
+    {
+        yield return new WaitForSeconds(1);
+        renderer.color = Constants.LAP_COLOR;
     }
 
     void OnTriggerStay2D(Collider2D collision)
