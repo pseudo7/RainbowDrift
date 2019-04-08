@@ -1,6 +1,16 @@
 # RainbowDrift
 ### A knock-off to Data Wing Game
 
+### Beat-The-Time Mode
+<p align="center">
+<img src="GIFs/Rainbow_Drift_01.gif">
+</p>
+
+### Free-Roam Mode
+<p align="center">
+<img src="GIFs/Rainbow_Drift_02.gif">
+</p>
+
 ### How to play:
 * Tap on `left` or `right` side of the screen to drift respectively
 * Press and hold on both sides of the screen to apply `brakes`
